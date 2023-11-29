@@ -46,10 +46,15 @@ class ItemRepositoryTest {
     @Test
     void 특정_아이템_업데이트() {
         //given
-
+        Item item1 = new Item("itemA", 10000, 10);
+        Item savedItem = itemRepository.save(item1);
         //when
-
+        Item findItem = itemRepository.findById(savedItem.getId());
+        Item changeItem = new Item("바뀐아이템",20000, 200);
+        itemRepository.update(findItem.getId(), changeItem);
         //that
+        Item changedItem = itemRepository.findById(findItem.getId());
+        assertThat(changedItem.getItemName()).isEqualTo("바뀐아이템");
     }
 
 }
